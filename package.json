@@ -1,0 +1,19 @@
+{
+  "name": "mock-hubot-robot",
+  "version": "0.0.1",
+  "description": "Provides a mock robot context to enable unit testing of hubot scripts",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gettyimages/mock-hubot-robot.git"
+  },
+  "keywords": [
+    "hubot",
+    "mocking"
+  ],
+  "author": "Casey MacPherson",
+  "license": "ISC"
+}
