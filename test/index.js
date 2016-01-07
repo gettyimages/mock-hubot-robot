@@ -1,22 +1,3 @@
-# mock-hubot-robot
-Provides a mock robot context used to provide testing support for Hubot script development
-
-### Install
-
-```
-npm install mock-hubot-robot
-```
-
-### Features
-Currently only supports testing regex triggers
-
-### Use
-
-Assuming a file in a test folder off the root of your hubot source
-Using Mocha and Chai
-
-`some-test-file-name.js`
-```js
 require('coffee-script')
 require('coffee-script/register')
 var robotCtx = require('../')(),
@@ -38,21 +19,3 @@ describe('Testing that my robot hears correctly',function() {
     })
   })
 })
-```
-
-`testscript.coffee`
-```coffee
-module.exports = (robot) ->
-  robot.hear /who's here/, (res) ->
-    console.log("called")
-```
-
-Output
-```
-  Testing that my robot hears correctly
-    ✓ hears phrase "who's here"
-
-
-  1 passing (11ms)
-
-```
