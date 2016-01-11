@@ -4,19 +4,17 @@ var robotCtx = require('../')(),
     expect = require('chai').expect
     
 var testLogging = function(robot) {
-    robot.log('Test Message')
+    robot.logger.info('Test Message')
 }
 
 describe('Can intercept robot.log calls',function() {
   it('captures single log message',function() {
       testLogging(robotCtx)
-      expect(robotCtx.getLoggedItems()).not.to.be.null
-      expect(robotCtx.getLoggedItems().length).to.be.equal(1)
+      expect(robotCtx.getLogItems().info.length).to.be.equal(1)
   })
   
   it('captures multiple log messages', function() {
       testLogging(robotCtx)
-      expect(robotCtx.getLoggedItems()).not.to.be.null
-      expect(robotCtx.getLoggedItems().length).to.be.equal(2)
-  })  
+      expect(robotCtx.getLogItems().info.length).to.be.equal(2)
+  })
 })

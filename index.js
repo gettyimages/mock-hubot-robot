@@ -15,7 +15,11 @@ MessageContext.prototype.send = function(message) {
 module.exports = function() {
     var hearItems = {}
     var respondItems = {}
-    var logItems = []
+    var logItems = {
+        info: [],
+        warn: [],
+        err: []
+    }
     
     return {
         getHeardItems: function() {
@@ -24,7 +28,7 @@ module.exports = function() {
         getRespondItems: function() {
             return respondItems
         },
-        getLoggedItems: function() {
+        getLogItems: function() {
             return logItems
         },
         hear: function(regex, callback) {
@@ -33,8 +37,16 @@ module.exports = function() {
         respond: function(regex, callback) {
             respondItems[regex.source] = { regexp: regex, cb: callback}
         },
-        log: function(message) {
-            logItems.push(message)
+        logger: {
+            info: function(message) {
+                 logItems.info.push(message)
+            },
+            error: function(message) {
+                logItems.err.push(message)
+            },
+            warning: function(message) {
+                logItems.warn.push(message)
+            }
         },
         //Provides regex matching and executes the mapped function
         //After it executes the function returns true/false, on the match, 
