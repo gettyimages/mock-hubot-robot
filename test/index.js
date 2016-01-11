@@ -1,13 +1,22 @@
 require('coffee-script')
 require('coffee-script/register')
 var robotCtx = require('../')(),
-    testscript = require('./testscript.coffee'),
     expect = require('chai').expect
+    
+var testhearingWithReplyAndSend = function(robot) {
+  robot.hear(/who's here/,function(res) {
+      res.reply('ME!')
+  })
+   
+  robot.hear(/test2/,function(res) {
+    res.send('/quote Done')
+  })
+}
 
 describe('Testing that my robot hears correctly',function() {
   before(function() {
     //This is what binds the robot context into your script.
-    testscript(robotCtx)
+    testhearingWithReplyAndSend(robotCtx)
   })
   
   it('hears phrase "who\'s here"',function(done) {
@@ -17,27 +26,52 @@ describe('Testing that my robot hears correctly',function() {
       done()
     })
   })
+
+    describe('The context captures interactions with the res aka msg object that Hubot has',function() {
+        var returnedMessageContext
+        var returnedError
+        
+        before(function(done){
+            robotCtx.ExecHear("who's here?", function(matched,msgCtx,err) {
+                returnedMessageContext = msgCtx
+                returnedError = err
+                done()
+            })    
+        })
+        
+        it('executes my function',function() {
+            expect(returnedMessageContext.replies).not.to.be.null
+        })
+
+        describe('When my function interacts with reply', function() {
+            
+            it('has expected number of replies', function() {
+                expect(returnedMessageContext.replies.length).to.be.equal(1)
+            })
+            
+            it('the message is correct', function() {
+                expect(returnedMessageContext.replies).to.contain("ME!")
+            })    
+        })
+    })
+})
   
-  describe('The context captures interactions with the res aka msg object that Hubot has',function() {
-      var returnedMessageContext
-      var returnedError
-      
-      before(function(done){
-        robotCtx.ExecHear("who's here?", function(matched,msgCtx,err) {
-          returnedMessageContext = msgCtx
-          done()
+describe('When my function interacts with send', function() {
+    var returnedMessageContext = null;
+    var returnedError = null;
+    
+    before(function(){
+        robotCtx.ExecHear("test2", function(matched,msgCtx,err) {
+            returnedMessageContext = msgCtx
+            returnedError = err
         })    
-      })
-      
-    it('executes my function',function() {
-          expect(returnedMessageContext.messages).not.to.be.null
     })
     
-    describe('When my function interacts with reply', function() {
-        it('has expected number of messages', function() {
-        expect(returnedMessageContext.messages.length).to.be.equal(1)
-    })    
+    it('has expected number of entries',function() {
+        expect(returnedMessageContext.sends.length).to.be.equal(1)
     })
-  })
-  
+    
+    it('value sent is correct',function() {
+        expect(returnedMessageContext.sends).to.contain("/quote Done")
+    })
 })
