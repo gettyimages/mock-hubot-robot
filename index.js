@@ -11,6 +11,7 @@ MessageContext.prototype.send = function(message) {
     this.sends.push(message)
 }
 
+var Log = require('log')
 
 module.exports = function() {
     var hearItems = {}
@@ -21,6 +22,8 @@ module.exports = function() {
         error: [],
         raw: []
     }
+    
+    var logger = new Log('info')
     
     return {
         getHeardItems: function() {
@@ -41,12 +44,15 @@ module.exports = function() {
         logger: {
             info: function(message) {
                  logItems.info.push(message)
+                 logger.info(message)
             },
             error: function(message) {
                 logItems.error.push(message)
+                logger.error(message)
             },
             warning: function(message) {
                 logItems.warning.push(message)
+                logger.warning(message)
             }
         },
         //Provides regex matching and executes the mapped function
