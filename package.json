@@ -1,6 +1,6 @@
 {
   "name": "mock-hubot-robot",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Provides a mock robot context to enable unit testing of hubot scripts",
   "main": "index.js",
   "scripts": {
