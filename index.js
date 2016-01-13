@@ -17,8 +17,9 @@ module.exports = function() {
     var respondItems = {}
     var logItems = {
         info: [],
-        warn: [],
-        err: []
+        warning: [],
+        error: [],
+        raw: []
     }
     
     return {
@@ -42,10 +43,10 @@ module.exports = function() {
                  logItems.info.push(message)
             },
             error: function(message) {
-                logItems.err.push(message)
+                logItems.error.push(message)
             },
             warning: function(message) {
-                logItems.warn.push(message)
+                logItems.warning.push(message)
             }
         },
         //Provides regex matching and executes the mapped function
