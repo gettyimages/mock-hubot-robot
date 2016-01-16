@@ -1,6 +1,7 @@
 require('coffee-script')
 require('coffee-script/register')
-var robotCtx = require('../')(),
+var MockRobot = require('../'),
+    robotCtx = new MockRobot(),
     expect = require('chai').expect
     
 var testLogging = function(robot) {
@@ -12,19 +13,20 @@ var testLogging = function(robot) {
 describe('Can intercept robot.logger calls',function() {
   describe('captures single log message',function() {
     before(function(){
+      debugger
       testLogging(robotCtx)
     })
     
     it('for info', function() {
-      expect(robotCtx.getLogItems().info.length).to.be.equal(1)
+      expect(robotCtx.logger.infoItems.length).to.be.equal(1)
     })
     
     it('for warning',function() {
-      expect(robotCtx.getLogItems().warning.length).to.be.equal(1)
+      expect(robotCtx.logger.warningItems.length).to.be.equal(1)
     })
     
     it('for error',function() {
-      expect(robotCtx.getLogItems().error.length).to.be.equal(1)
+      expect(robotCtx.logger.errorItems.length).to.be.equal(1)
     })
   })
   
@@ -34,15 +36,15 @@ describe('Can intercept robot.logger calls',function() {
     })
     
     it('for info', function() {
-      expect(robotCtx.getLogItems().info.length).to.be.equal(2)
+      expect(robotCtx.logger.infoItems.length).to.be.equal(2)
     })
     
     it('for warning',function() {
-      expect(robotCtx.getLogItems().warning.length).to.be.equal(2)
+      expect(robotCtx.logger.warningItems.length).to.be.equal(2)
     })
     
     it('for error',function() {
-      expect(robotCtx.getLogItems().error.length).to.be.equal(2)
+      expect(robotCtx.logger.errorItems.length).to.be.equal(2)
     })
   })
 })

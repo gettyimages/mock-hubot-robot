@@ -1,17 +1,11 @@
 require('coffee-script')
 require('coffee-script/register')
-var robotCtx = require('../')(),
+var MockRobot = require('../'),
+    robotCtx = new MockRobot(),
     expect = require('chai').expect
     
-var testhearingWithReplyAndSend = function(robot) {
-  robot.hear(/who's here/,function(res) {
-      res.reply('ME!')
-  })
-   
-  robot.hear(/test2/,function(res) {
-    res.send('/quote Done')
-  })
-}
+var testhearingWithReplyAndSend = require('./testscripts/hear_with_reply_and_send.coffee')
+
 
 describe('Testing that my robot hears correctly',function() {
   before(function() {
