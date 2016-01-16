@@ -1,5 +1,4 @@
 "use strict"
-
 require('coffee-script/register')
 var Brain = require('./node_modules/hubot/src/brain.coffee')
 var EventEmitter = require('events')
