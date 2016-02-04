@@ -6,8 +6,7 @@ var MockRobot = require('../'),
     
 var testhearingWithReplyAndSend = require('./testscripts/hear_with_reply_and_send.coffee')
 
-
-describe('Testing that my robot hears correctly',function() {
+describe('The Robot hears correctly',function() {
   before(function() {
     //This is what binds the robot context into your script.
     testhearingWithReplyAndSend(robotCtx)
@@ -19,6 +18,13 @@ describe('Testing that my robot hears correctly',function() {
       expect(matched).to.be.true
       done()
     })
+  })
+  
+  it('does not hear phrase "who\'s there"',function(done) {
+      robotCtx.TestHear("who's there?",function(matched) {
+          expect(matched).to.be.false
+          done()
+      })
   })
 
     describe('The context captures interactions with the res aka msg object that Hubot has',function() {
@@ -46,6 +52,15 @@ describe('Testing that my robot hears correctly',function() {
             it('the message is correct', function() {
                 expect(returnedMessageContext.replies).to.contain("ME!")
             })    
+        })
+    })
+})
+
+describe('When ExecHear has no match',function() {
+    it('sets matched to false', function(done) {
+        robotCtx.ExecHear("who's there?", function(matched,msgCtx,err) {
+            expect(matched).to.be.false
+            done()
         })
     })
 })

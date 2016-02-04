@@ -104,9 +104,9 @@ class MockRobot {
               callback(true,msgCtx,null)
               return
           }
-          
-          callback(false,null,null)
       }
+      
+      callback(false,null,null)
   }
   
   //Provides regex only testing
