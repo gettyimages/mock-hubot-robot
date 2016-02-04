@@ -1,6 +1,7 @@
 "use strict"
 require('coffee-script/register')
-var Brain = require('./node_modules/hubot/src/brain.coffee')
+var hubot = require('hubot')
+var Brain = hubot.Brain
 var EventEmitter = require('events')
 
 function MessageContext() {
