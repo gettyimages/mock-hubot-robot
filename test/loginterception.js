@@ -13,7 +13,6 @@ var testLogging = function(robot) {
 describe('Can intercept robot.logger calls',function() {
   describe('captures single log message',function() {
     before(function(){
-      debugger
       testLogging(robotCtx)
     })
     
